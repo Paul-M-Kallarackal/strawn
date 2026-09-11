@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-const assets = resolve(import.meta.dirname, "..", "apps", "docs", "dist", "assets");
+const assets = resolve(import.meta.dirname, "..", "website", "dist", "assets");
 const files = readdirSync(assets);
 const javascript = files.filter((file) => file.endsWith(".js"));
 const fonts = files.filter((file) => file.endsWith(".woff2"));

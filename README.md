@@ -29,7 +29,7 @@ Strawn is Moriatz Labs’ original variable typeface and the shared typographic 
 
 ```sh
 bun install
-bun run docs:dev
+bun run website:dev
 bun run quality
 ```
 

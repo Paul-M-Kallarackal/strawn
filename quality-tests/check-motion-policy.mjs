@@ -2,7 +2,7 @@ import { globSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const files = globSync(["apps/docs/src/**/*.{ts,tsx,css}"], { cwd: root })
+const files = globSync(["website/src/**/*.{ts,tsx,css}"], { cwd: root })
   .filter((file) => !file.replaceAll("\\", "/").includes("/dist/") && !file.replaceAll("\\", "/").includes("/node_modules/"));
 const exemptTimingFiles = new Set();
 const violations = [];

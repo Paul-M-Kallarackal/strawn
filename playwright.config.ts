@@ -17,7 +17,7 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "bun run --cwd apps/docs preview -- --host 127.0.0.1 --port 4183",
+    command: "bun run --cwd website preview -- --host 127.0.0.1 --port 4183",
     port: 4183,
     reuseExistingServer: false,
   },

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fontFacts } from "../../apps/docs/src/features/font/fontData";
+import { fontFacts } from "../../website/src/features/font/fontData";
 
 describe("Strawn font facts", () => {
   it("keeps the published family and variable-weight contract", () => {

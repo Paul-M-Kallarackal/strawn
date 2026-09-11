@@ -70,15 +70,11 @@ jobs:
           key: ${{ runner.os }}-${{ runner.arch }}-bun-${{ env.BUN_VERSION }}-${{ hashFiles('bun.lock') }}
       - run: bun install --frozen-lockfile
       - run: time bun run build
-      - run: time bun run docs:vercel-output
       - run: time bun run quality:bundle
       - uses: actions/upload-artifact@v4
         with:
           name: build-output
-          path: |
-            apps/docs/dist
-            .vercel/output
-          include-hidden-files: true
+          path: website/dist
           if-no-files-found: error
           retention-days: 3
 
@@ -176,17 +172,15 @@ jobs:
       - run: time bun run quality:lighthouse
 
   deploy:
-    name: Deploy documentation
+    name: Deploy website
     needs: [static, unit, build, browser, lighthouse]
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: build-output
-      - name: Deploy verified artifact to Vercel
+      - uses: actions/checkout@v4
+      - name: Deploy to Vercel
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -198,7 +192,6 @@ jobs:
             exit 1
           fi
           npx --yes "vercel@${VERCEL_CLI_VERSION}" deploy \
-            --prebuilt \
             --prod \
             --yes \
             --scope "$VERCEL_SCOPE" \

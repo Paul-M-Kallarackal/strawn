@@ -45,7 +45,7 @@ function run(command, args) {
 
 const previewPort = await freePort();
 const debugPort = await freePort();
-const preview = spawn("bun", ["run", "--cwd", "apps/docs", "preview", "--host", "127.0.0.1", "--port", String(previewPort)], {
+const preview = spawn("bun", ["run", "--cwd", "website", "preview", "--host", "127.0.0.1", "--port", String(previewPort)], {
   cwd: root,
   stdio: "ignore",
   windowsHide: true,
