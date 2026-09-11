@@ -18,11 +18,11 @@
     "./files/*": "./dist/files/*"
   },
   "scripts": {
-    "build": "python scripts/build.py",
-    "test": "python scripts/test_font.py",
-    "test:determinism": "python scripts/test_determinism.py",
-    "test:fontbakery": "python scripts/test_fontbakery.py",
-    "quality": "npm run build && npm test && npm run test:determinism && npm run test:fontbakery"
+    "build": "uv run --python 3.12 --with-requirements requirements.txt python scripts/build.py",
+    "test": "uv run --python 3.12 --with-requirements requirements.txt python scripts/test_font.py",
+    "test:determinism": "uv run --python 3.12 --with-requirements requirements.txt python scripts/test_determinism.py",
+    "test:fontbakery": "uv run --python 3.12 --with-requirements requirements-quality.txt python scripts/test_fontbakery.py",
+    "quality": "uv run --python 3.12 --with-requirements requirements-quality.txt python scripts/build.py && uv run --python 3.12 --with-requirements requirements-quality.txt python scripts/test_font.py && uv run --python 3.12 --with-requirements requirements-quality.txt python scripts/test_determinism.py && uv run --python 3.12 --with-requirements requirements-quality.txt python scripts/test_fontbakery.py"
   },
   "publishConfig": {
     "access": "public",
@@ -30,10 +30,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/moriatz-labs/strawn-font.git"
+    "url": "git+https://github.com/Paul-M-Kallarackal/strawn.git",
+    "directory": "packages/font"
   },
   "homepage": "https://strawn.moriatz.com",
-  "bugs": "https://github.com/moriatz-labs/strawn-font/issues",
+  "bugs": "https://github.com/Paul-M-Kallarackal/strawn/issues",
   "keywords": [
     "font",
     "variable-font",

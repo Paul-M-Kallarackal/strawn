@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / "build"
 DIST = ROOT / "dist"
 FILES = DIST / "files"
-DOCS = ROOT / "documentation"
+PROOFS = ROOT / "proofs"
 
 UPM = 1000
 # Typographic metrics include room for Latin accents. The visible lowercase and
@@ -1071,7 +1071,7 @@ def render_specimen(static_font: Path, variable_woff2: Path) -> None:
     centered_text("MORIATZ", 210, font)
     centered_text("LABS", 430, font)
     centered_text("VARIABLE TYPEFACE · LATIN CORE · 100—700", 770, label_font)
-    image.save(DOCS / "moriatz-labs-display.png", optimize=True)
+    image.save(PROOFS / "moriatz-labs-display.png", optimize=True)
 
     encoded = base64.b64encode(variable_woff2.read_bytes()).decode("ascii")
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
@@ -1086,47 +1086,7 @@ def render_specimen(static_font: Path, variable_woff2: Path) -> None:
   <text class="labs" x="800" y="610">LABS</text>
   <text class="meta" x="800" y="820">VARIABLE TYPEFACE · LATIN CORE · 100—700</text>
 </svg>'''
-    (DOCS / "moriatz-labs-display.svg").write_text(svg, encoding="utf-8")
-
-
-def write_specimen_html() -> None:
-    html = """<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Strawn specimen</title>
-  <link rel="stylesheet" href="../dist/index.css">
-  <style>
-    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #050505; color: #f5f5f0; }
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-    main { width: min(100% - 2rem, 90rem); margin: auto; padding: 7rem 0; }
-    .display { font-family: "Strawn", sans-serif; font-weight: 500; }
-    h1 { max-width: 8ch; margin: 0; font-size: clamp(5rem, 17vw, 15rem); line-height: .82; }
-    .deck { max-width: 24ch; margin: 5rem 0; font-size: clamp(2.5rem, 7vw, 7rem); line-height: .95; }
-    .axis { display: grid; gap: 2rem; padding-top: 4rem; border-top: 1px solid #333; }
-    .axis p { margin: 0; font-size: clamp(2rem, 5vw, 5rem); line-height: 1; }
-    .hairline { font-weight: 100; } .signature { font-weight: 300; } .dense { font-weight: 500; } .bold { font-weight: 700; }
-    small { color: #999; text-transform: uppercase; }
-  </style>
-</head>
-<body>
-  <main>
-    <small>Original variable system typeface · Moriatz Labs</small>
-    <h1 class="display">Moriatz Labs</h1>
-    <p class="display deck">Thin ideas. Sharp systems. Useful software.</p>
-    <section class="display axis" aria-label="Weight specimens">
-      <p class="hairline">100 — Fine</p>
-      <p class="signature">300 — Signature</p>
-      <p class="dense">500 — Dense</p>
-      <p class="bold">700 — Structural</p>
-    </section>
-  </main>
-</body>
-</html>
-"""
-    (DOCS / "specimen.html").write_text(html, encoding="utf-8")
+    (PROOFS / "moriatz-labs-display.svg").write_text(svg, encoding="utf-8")
 
 
 def main() -> None:
@@ -1134,7 +1094,7 @@ def main() -> None:
     shutil.rmtree(DIST, ignore_errors=True)
     BUILD.mkdir(parents=True)
     FILES.mkdir(parents=True)
-    DOCS.mkdir(parents=True, exist_ok=True)
+    PROOFS.mkdir(parents=True, exist_ok=True)
 
     # Dense is the default interface master while the lighter Signature master
     # remains available on the continuous axis.
@@ -1186,11 +1146,10 @@ def main() -> None:
     write_css()
     write_hero_wordmark()
     write_manifests()
-    write_specimen_html()
     render_specimen(static_paths[500], variable_woff2)
     print(f"Built {variable_ttf.relative_to(ROOT)}")
     print(f"Built {variable_woff2.relative_to(ROOT)}")
-    print(f"Rendered {(DOCS / 'moriatz-labs-display.png').relative_to(ROOT)}")
+    print(f"Rendered {(PROOFS / 'moriatz-labs-display.png').relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

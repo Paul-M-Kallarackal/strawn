@@ -1,11 +1,12 @@
-import characterSet from "./Strawn-Character-Set.json";
+import characterSet from "@moriatz-labs/strawn/files/Strawn-Character-Set.json";
+import variableFontUrl from "@moriatz-labs/strawn/files/Strawn-Variable.ttf?url";
 
 export const fontFacts = {
   family: "Strawn",
   variableLabel: "Variable 100—700",
   version: "0.7.0",
-  downloadUrl: "/downloads/Strawn-Variable.ttf",
-  repositoryUrl: "https://github.com/moriatz-labs/strawn-font",
+  downloadUrl: variableFontUrl,
+  repositoryUrl: "https://github.com/Paul-M-Kallarackal/strawn",
   defaultWeight: 500,
   characterCount: 319,
   metrics: [

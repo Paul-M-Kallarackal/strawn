@@ -1,8 +1,14 @@
 # Strawn
 
-Strawn is Moriatz Labs’ original variable typeface and the shared typographic voice across Moriatz products. Its letters are constructed from tapered vectors inspired by toothpicks: pointed at both ends, dense through the middle, and recognisable from interface labels to oversized headlines.
+Strawn is Moriatz Labs’ original variable typeface and the shared typographic voice across Moriatz products. Its letters are constructed from tapered vectors inspired by toothpicks: pointed at both ends, dense through the middle, and recognisable from interface labels to oversized headlines. This monorepo contains the publishable font package and its public specimen website.
 
 [View the Strawn specimen](https://strawn.moriatz.com/font)
+
+## Structure
+
+- `packages/font` — canonical glyph source, generated font package, tests, and visual proofs
+- `website` — public Strawn specimen consuming the local font workspace
+- `quality-tests` — website unit, browser, accessibility, performance, and policy checks
 
 ## Version 0.7
 
@@ -29,6 +35,7 @@ Strawn is Moriatz Labs’ original variable typeface and the shared typographic 
 
 ```sh
 bun install
+bun run font:quality
 bun run website:dev
 bun run quality
 ```

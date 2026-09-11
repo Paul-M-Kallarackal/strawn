@@ -18,7 +18,7 @@ STATICS = {
     500: FILES / "Strawn-Dense.ttf",
     700: FILES / "Strawn-Structural.ttf",
 }
-DISPLAY = ROOT / "documentation" / "moriatz-labs-display.png"
+DISPLAY = ROOT / "proofs" / "moriatz-labs-display.png"
 HERO_STROKES = FILES / "Strawn-Hero-Strokes.json"
 METRICS = FILES / "Strawn-Metrics.json"
 CHARSET = FILES / "Strawn-Character-Set.json"

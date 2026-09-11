@@ -10,7 +10,7 @@ BUILD_SCRIPT = ROOT / "scripts" / "build.py"
 
 def artifact_hashes() -> dict[str, str]:
     files = sorted((ROOT / "dist" / "files").glob("*"))
-    files.extend(sorted((ROOT / "documentation").glob("moriatz-labs-display.*")))
+    files.extend(sorted((ROOT / "proofs").glob("moriatz-labs-display.*")))
     return {
         str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in files

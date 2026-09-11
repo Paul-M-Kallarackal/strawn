@@ -1,8 +1,1 @@
-@font-face {
-  font-family: "Strawn";
-  src: url("./assets/fonts/Strawn-Variable.woff2") format("woff2-variations");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 700;
-}
-
+@import "@moriatz-labs/strawn";

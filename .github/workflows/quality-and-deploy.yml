@@ -16,6 +16,32 @@ env:
   VERCEL_CLI_VERSION: 50.28.0
 
 jobs:
+  font:
+    name: Font build and quality
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: packages/font/requirements*.txt
+      - run: time bun run font:quality
+      - name: Verify generated font artifacts are committed
+        run: git diff --exit-code -- packages/font/dist packages/font/proofs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: font-output
+          path: |
+            packages/font/dist
+            packages/font/proofs
+          if-no-files-found: error
+          retention-days: 3
+
   static:
     name: Static contracts
     runs-on: ubuntu-latest
@@ -38,7 +64,7 @@ jobs:
           time bun run quality:motion
 
   unit:
-    name: Unit and accessibility
+    name: Unit tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -56,6 +82,7 @@ jobs:
 
   build:
     name: Build and package
+    needs: font
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -69,7 +96,7 @@ jobs:
           path: ~/.bun/install/cache
           key: ${{ runner.os }}-${{ runner.arch }}-bun-${{ env.BUN_VERSION }}-${{ hashFiles('bun.lock') }}
       - run: bun install --frozen-lockfile
-      - run: time bun run build
+      - run: time bun run website:build
       - run: time bun run quality:bundle
       - uses: actions/upload-artifact@v4
         with:
@@ -130,6 +157,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: build-output
+          path: website/dist
       - id: browser-cache
         uses: actions/cache/restore@v4
         with:
@@ -160,6 +188,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: build-output
+          path: website/dist
       - id: browser-cache
         uses: actions/cache/restore@v4
         with:
@@ -173,7 +202,7 @@ jobs:
 
   deploy:
     name: Deploy website
-    needs: [static, unit, build, browser, lighthouse]
+    needs: [font, static, unit, build, browser, lighthouse]
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:

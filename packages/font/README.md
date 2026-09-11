@@ -39,14 +39,12 @@ The construction uses a 1,000-unit em, 720-unit cap height, 520-unit x-height, 7
 ## Build and verify
 
 ```sh
-python -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
-.venv\Scripts\python scripts/build.py
-.venv\Scripts\python scripts/test_font.py
-.venv\Scripts\python scripts/test_determinism.py
+uv run --python 3.12 --with-requirements requirements.txt python scripts/build.py
+uv run --python 3.12 --with-requirements requirements.txt python scripts/test_font.py
+uv run --python 3.12 --with-requirements requirements.txt python scripts/test_determinism.py
 ```
 
-The source of truth is `scripts/build.py`. It owns the original glyph skeletons, taper construction, masters, metrics, OpenType layout features, metadata, packaged CSS, manifests, and specimen artwork.
+The source of truth is `scripts/build.py`. It owns the original glyph skeletons, taper construction, masters, metrics, OpenType layout features, metadata, packaged CSS, manifests, and proof artwork. In the source monorepo this package lives at `packages/font`.
 
 ## Upgrading to 0.7
 
