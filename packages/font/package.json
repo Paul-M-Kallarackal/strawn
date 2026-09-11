@@ -1,0 +1,43 @@
+{
+  "name": "@moriatz-labs/strawn",
+  "version": "0.7.0",
+  "description": "Strawn — Moriatz Labs' tapered variable system typeface.",
+  "license": "OFL-1.1",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "OFL.txt"
+  ],
+  "style": "./dist/index.css",
+  "exports": {
+    ".": "./dist/index.css",
+    "./variable.css": "./dist/index.css",
+    "./files/*": "./dist/files/*"
+  },
+  "scripts": {
+    "build": "python scripts/build.py",
+    "test": "python scripts/test_font.py",
+    "test:determinism": "python scripts/test_determinism.py",
+    "test:fontbakery": "python scripts/test_fontbakery.py",
+    "quality": "npm run build && npm test && npm run test:determinism && npm run test:fontbakery"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moriatz-labs/strawn-font.git"
+  },
+  "homepage": "https://strawn.moriatz.com",
+  "bugs": "https://github.com/moriatz-labs/strawn-font/issues",
+  "keywords": [
+    "font",
+    "variable-font",
+    "system-font",
+    "moriatz"
+  ]
+}
